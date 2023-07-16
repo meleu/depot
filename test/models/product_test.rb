@@ -60,7 +60,6 @@ class ProductTest < ActiveSupport::TestCase
     )
 
     assert new_product.invalid?
-    # assert_equal error_messages(:taken), new_product.errors[:title]
     assert_equal [I18n.t('errors.messages.taken')], new_product.errors[:title]
   end
 end
