@@ -7,7 +7,7 @@ class ProductTest < ActiveSupport::TestCase
     assert product.errors[:title].any?
     assert product.errors[:description].any?
     assert product.errors[:image_url].any?
-    assert product.errors[:price].any?
+    assert product.errors[:price].any?, 'price must not be empty'
   end
 
   test 'price must be positive' do
@@ -15,11 +15,13 @@ class ProductTest < ActiveSupport::TestCase
 
     product.price = 0
     assert product.invalid?
-    assert_equal ['must be greater than or equal to 0.01'], product.errors[:price]
+    # assert_equal ['must be greater than or equal to 0.01'], product.errors[:price]
+    assert_equal [I18n.t('errors.messages.greater_than_or_equal_to', count: 0.01)], product.errors[:price]
 
     product.price = -1
     assert product.invalid?
-    assert_equal ['must be greater than or equal to 0.01'], product.errors[:price]
+    # assert_equal ['must be greater than or equal to 0.01'], product.errors[:price]
+    assert_equal [I18n.t('errors.messages.greater_than_or_equal_to', count: 0.01)], product.errors[:price]
 
     product.price = 1
     assert product.valid?
@@ -58,6 +60,7 @@ class ProductTest < ActiveSupport::TestCase
     )
 
     assert new_product.invalid?
-    assert_equal error_messages, new_product.errors[:title]
+    # assert_equal error_messages(:taken), new_product.errors[:title]
+    assert_equal [I18n.t('errors.messages.taken')], new_product.errors[:title]
   end
 end
