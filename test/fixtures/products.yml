@@ -5,8 +5,8 @@ valid_product:
   price: 9.99
 
 two:
-  title: MyString
-  description: MyText
+  title: TitleTwo
+  description: Description for the TitleTwo
   image_url: lorem.jpg
   price: 9.99
 
